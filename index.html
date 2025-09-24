@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 크리스마스 카드 만들기</title>
+    <style>
+        @font-face {
+            font-family: 'SchoolSafetyStubbyChalk';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2508-2@1.0/HakgyoansimMondangbunfilR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+
+            
+        }
+
+        body {font-family: 'SchoolSafetyStubbyChalk', sans-serif;
+            display: flex; flex-direction: column;align-items: center; background-color: #eaf5ff;margin: 10px;
+        }
+
+        h1 {
+            color: #ff4848;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .top-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            background-color: rgb(255, 255, 255);
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 2px solid #ff4848;
+        }
+
+        .top-menu label, .top-menu h3 {
+            font-size: 1.5em;margin: 0;color: #ff4848;}
+        
+        .top-menu input[type="range"] { vertical-align: middle; }
+
+        .card_date {
+            padding: 2px;
+            border-radius: 4px;
+            font-size: 1.3em;
+            background-color: transparent;
+            font-family: 'SchoolSafetyStubbyChalk', sans-serif;}
+
+        .card_date:focus { outline: none;}
+
+        .assets-box {margin-top: 20px;}
+        
+        .asset-item img, .asset-item button {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .asset-item img:hover, .asset-item button:hover {
+            border-color: #ff4848;
+            transform: scale(1.1);
+        }
+        
+        .asset-item button {background-size: cover;background-position: center;}
+
+        .card-wrapper {
+                    width: 95%;
+                    max-width: 800px;
+                    height: auto;
+                    aspect-ratio: 4 / 3;
+                    position: relative;
+                    box-shadow: 0 4px 15px rgba(102, 101, 97, 0.2);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    margin-top: 20px;  }
+
+        .card-area {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;}
+        
+        .card-text {width: 100%;
+                    height: 100%;
+                    border: none;
+                    padding: 6.25%;
+                    font-size: 2em;
+                    line-height: 1.6;
+                    resize: none;
+                    background-color: transparent;
+                    box-sizing: border-box;
+                    color:#ff4848;
+                    font-family: 'SchoolSafetyStubbyChalk', sans-serif; }
+
+        .card-text:focus { outline: none; }
+        
+        .card-date-display {
+            position: absolute;
+            bottom: 6.25%;
+            left: 6.25%;
+            font-size: 1.5em;
+            font-family: 'SchoolSafetyStubbyChalk', sans-serif;
+            z-index: 5;}
+        
+        @media (max-width: 850px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .card-text {
+                font-size: 1.8em; }
+
+            .card-date-display {
+                font-size: 1.3em; }
+
+            .top-menu label, .top-menu h3 {
+                font-size: 1.3em;}}
+
+        @media (max-width: 480px) {
+             h1 { font-size: 2em;}
+
+            .card-text {font-size: 1.5em; }
+
+             .card-date-display {font-size: 1.1em; } }
+
+            .music-btn {
+            position: fixed; 
+            top: 20px;       
+            right: 20px;    
+            width: 50px;    
+            height: 50px;   
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 100; }
+.music-btn:hover {
+    transform: scale(1.1);
+}
+    </style>
+</head>
+<body>
+    <audio id="bgm" src="w.mp3" loop></audio>
+    <img src="play-icon.png" class="music-btn" alt="Music Button">
+    <h1> 크리스마스 카드 공작소 </h1>
+
+
+    <div class="top-menu">
+        <label for="textColor">글씨 색상:</label>
+        <input type="color" id="textColor" value="#ff4848">
+        
+        <label for="fontSize">글씨 크기:</label>
+        <input type="range" id="fontSize" min="1" max="5" step="0.1" value="2">
+
+        <label for="card_date">날짜:</label>
+        <input type="date" id="card_date" value="#ff4848">
+    </div>
+
+    <div class="card-wrapper">
+        <div class="card-area">
+            <div class="card-date-display"></div>
+            <textarea class="card-text" placeholder="여기에 크리스마스 메시지를 적어보세요..."></textarea>
+        </div>
+    </div>
+    
+    <div class="top-menu assets-box">
+        <h3>배경 선택:</h3>
+        <div class="asset-item bg-box">
+             <button data-bg="card.png" style="background-image: url('card.png');"></button>
+             <button data-bg="card2.png" style="background-image: url('card2.png');"></button>
+             <button data-bg="card3.png" style="background-image: url('card3.png');"></button>
+             <button data-bg="card4.png" style="background-image: url('card4.png');"></button>
+        </div>
+        <h3 style="margin-left: 20px;">우표 추가:</h3>
+        <div class="asset-item sticker-box">
+            <img src="1.png" >
+            <img src="2.png" >
+            <img src="3.png" >
+            <img src="4.png" >
+            <img src="5.png" >
+        </div>
+    </div>
+    
+    <script>
+        let cardArea = document.querySelector('.card-area');
+        let cardText = document.querySelector('.card-text');
+        let cardDateDisplay = document.querySelector('.card-date-display');
+        
+        let textColorPicker = document.getElementById('textColor');
+        let cardDate = document.getElementById('card_date');
+        let fontSizeSlider = document.getElementById('fontSize');
+
+        let bgButtons = document.querySelectorAll('.bg-box button');
+        let stickerImages = document.querySelectorAll('.sticker-box img');
+
+        function updateDateDisplay() {
+            if (cardDate.value) {
+                let parts = cardDate.value.split('-');
+                let year = parts[0];
+                let month = parts[1];
+                let day = parts[2];
+                cardDateDisplay.textContent = `${year}. ${month}. ${day}.`;
+            } else {
+                cardDateDisplay.textContent = '';
+            } }
+
+        cardDate.valueAsDate = new Date();
+        cardDate.style.color = textColorPicker.value;
+        cardDateDisplay.style.color = textColorPicker.value;
+        updateDateDisplay();
+
+        textColorPicker.oninput = function() {
+            cardText.style.color = this.value;
+            cardDate.style.color = this.value;
+            cardDateDisplay.style.color = this.value;
+        };
+        
+        fontSizeSlider.oninput = function() {
+            cardText.style.fontSize = this.value + 'em';
+        };
+
+        cardDate.oninput = function() {
+            updateDateDisplay();
+        };
+
+        for (let i = 0; i < bgButtons.length; i++) {
+            bgButtons[i].onclick = function() {
+                let bgUrl = this.dataset.bg;
+                cardArea.style.backgroundImage = 'url(' + bgUrl + ')';
+                cardArea.style.backgroundColor = 'transparent';
+            };
+        }
+
+        for (let i = 0; i < stickerImages.length; i++) {
+            stickerImages[i].onclick = function() {
+                addSticker(this.src);
+            };}
+        
+        function addSticker(src) {
+            let sticker = new Image();
+            sticker.src = src;
+            sticker.style.position = 'absolute';
+            sticker.style.left = '100px';
+            sticker.style.top = '100px';
+            sticker.style.width = '250px';
+            sticker.style.cursor = 'move';
+            sticker.style.userSelect = 'none';
+            
+            sticker.ondblclick = function() {
+                this.remove();
+            };
+
+            makeDraggable(sticker);
+            cardArea.appendChild(sticker);
+        }
+
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            element.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+    
+let song = document.getElementById('bgm');
+let musicBtn = document.querySelector('.music-btn');
+let playState = false;
+
+musicBtn.onclick = function(){
+    if(!playState){ 
+        song.play(); 
+        musicBtn.src = 'play-icon.png';
+        playState = true;
+    } else { 
+        song.pause(); 
+        musicBtn.src = 'pause-icon.png'; 
+        playState = false;
+    }
+};
+    </script>
+</body>
+</html>
